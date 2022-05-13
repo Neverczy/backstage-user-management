@@ -5,6 +5,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import '@/assets/less/index.less'
 import router from '@/router'
 import store from '@/store'
+import '@/api/mock'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
