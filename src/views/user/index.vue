@@ -230,7 +230,6 @@ export default {
       this.$refs.operationDialogForm.resetFields()
       console.log(this.operationDialogForm)
     },
-
     confirmOperationDialog() {
       this.$refs.operationDialogForm.validate((valid) => {
         if (valid) {
@@ -313,7 +312,6 @@ export default {
       }).catch(() => {
         this.$message.info('已取消删除')
       })
-
     },
     searchUser() {
       this.tableLoading = true
