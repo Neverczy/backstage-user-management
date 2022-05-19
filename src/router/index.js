@@ -2,18 +2,18 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 const originPush = VueRouter.prototype.push
-VueRouter.prototype.push = function push(location){
-    return originPush.call(this,location).catch(err => err)
+VueRouter.prototype.push = function push(location) {
+    return originPush.call(this, location).catch(err => err)
 }
 
 Vue.use(VueRouter)
 
 const routes = [
     {
-        path:'/',
-        name:'main',
-        component: ()=>import('@/views/manager-main'),
-        children:[
+        path: '/',
+        name: 'main',
+        component: () => import('@/views/manager-main'),
+        children: [
             {
                 path: '/home',
                 name: 'home',
@@ -27,18 +27,27 @@ const routes = [
             {
                 path: '/user',
                 name: 'user',
-                component: ()=> import('@/views/user'),
+                component: () => import('@/views/user'),
+            },
+            {
+                path: '/page1',
+                name: 'page1',
+                component: () => import('@/views/others/pageOne')
+            },
+            {
+                path: '/page2',
+                name: 'page2',
+                component: () => import('@/views/others/pageTwo')
+            },
+            {
+                path: '*',
+                redirect: '/home'
             }
-
         ],
     },
-    {
-        path: '*',
-        redirect: '/'
-    }
 ]
 
 export default new VueRouter({
-    mode:'history',
+    mode: 'history',
     routes,
 })

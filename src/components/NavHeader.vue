@@ -3,8 +3,12 @@
     <div class="l-content">
       <el-button plain circle size="mini" icon="el-icon-menu" @click="changeIsColl"></el-button>
       <el-breadcrumb separator-class="el-icon-caret-right">
-        <el-breadcrumb-item class="custColor" :to="{ path: '/' }">后台主页</el-breadcrumb-item>
-        <el-breadcrumb-item class="custColor">活动管理</el-breadcrumb-item>
+        <el-breadcrumb-item
+            class="custColor"
+            v-for="item in tabs"
+            :to="{ name: item.name}"
+            :key="item.name">{{ item.label }}
+        </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="r-content">
@@ -22,10 +26,17 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 export default {
   name: "NavHeader",
   data() {
     return {}
+  },
+  computed: {
+    ...mapState({
+      tabs: state => state.tab.tabs
+    })
   },
   methods: {
     changeIsColl() {
@@ -64,6 +75,11 @@ export default {
   .el-breadcrumb /deep/ .el-breadcrumb__inner {
     color: #fff;
   }
+
+  .el-breadcrumb /deep/ .el-breadcrumb__inner:hover {
+    cursor: pointer;
+  }
+
 }
 
 .r-content {
@@ -81,6 +97,7 @@ export default {
       border-radius: 50%;
     }
   }
+
 }
 
 </style>

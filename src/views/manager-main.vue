@@ -8,6 +8,7 @@
         <NavHeader></NavHeader>
       </el-header>
       <el-main>
+        <common-tags></common-tags>
         <router-view></router-view>
       </el-main>
     </el-container>
@@ -17,12 +18,14 @@
 <script>
 import NavSideBar from '@/components/NavSideBar'
 import NavHeader from '@/components/NavHeader'
+import commonTags from '@/components/commonTags'
 
 export default {
   name: "manager-main",
   components: {
     NavSideBar,
     NavHeader,
+    commonTags
   }
 }
 </script>
