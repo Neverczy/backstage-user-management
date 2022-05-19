@@ -22,7 +22,8 @@
         <el-menu-item
             :index="cItem.name"
             v-for="cItem in hcItem.children"
-            :key="cItem.name">
+            :key="cItem.name"
+            @click="goPage(cItem)">
           {{ cItem.label }}
         </el-menu-item>
       </el-menu-item-group>
@@ -92,9 +93,7 @@ export default {
       return this.menu.filter(item => item.children)
     },
     ...mapState({
-      isCollapse: (state) => {
-        return state.tab.iscollapse
-      }
+      isCollapse: state => state.tab.iscollapse
     })
   },
   methods: {
@@ -108,6 +107,7 @@ export default {
       this.$router.push({
         name: item.name
       })
+      this.$store.commit('SELECTMENU', item)
     },
     changeCollapse() {
       this.iscollapse = !this.iscollapse

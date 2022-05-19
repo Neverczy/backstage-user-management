@@ -49,14 +49,18 @@
           </el-card>
         </div>
         <el-card style="height: 280px">
-          <div style="height:280px" ref="echartsLine"></div>
+          <echarts-components :charts-data="lineChart" chart-height="280"></echarts-components>
         </el-card>
         <div class="graph">
           <el-card style="height: 260px">
-            <div style="height: 260px" ref="echartsBar"></div>
+            <echarts-components :charts-data="barChart" chart-height="260"></echarts-components>
           </el-card>
           <el-card style="height: 260px">
-            <div style="height: 200px" ref="echartsPie"></div>
+            <echarts-components
+                :is-axis-chart="false"
+                :charts-data="pieChart"
+                chart-height="200">
+            </echarts-components>
           </el-card>
         </div>
       </el-col>
@@ -66,50 +70,16 @@
 
 <script>
 import {getData} from '@/api/data'
-import * as echarts from 'echarts'
+import echartsComponents from '@/components/echartsComponents'
 
 export default {
   name: "home",
+  components: {
+    echartsComponents
+  },
   data() {
     return {
-      tableData: [
-        {
-          name: 'oppo',
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800
-        },
-        {
-          name: 'vivo',
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800
-        },
-        {
-          name: '苹果',
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800
-        },
-        {
-          name: '小米',
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800
-        },
-        {
-          name: '三星',
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800
-        },
-        {
-          name: '魅族',
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800
-        }
-      ],
+      tableData: [],
       tableLabel: {
         name: '课程',
         todayBuy: '今日购买',
@@ -154,105 +124,51 @@ export default {
           color: "#5ab1ef",
         },
       ],
+      lineChart: {
+        xAxis: {},
+        series: []
+      },
+      barChart: {
+        xAxis: {},
+        series: []
+      },
+      pieChart: {
+        series: []
+      }
     }
   },
   mounted() {
     getData().then(res => {
       const {code, data} = res.data
       if (code === 20000) {
-        console.log(data)
-        const series = []
+        //table data
         this.tableData = data.tableData
+        //line charts
+        const series = []
         const keys = Object.keys(data.orderData.data[0])
         keys.forEach(item => {
           series.push({
             name: item,
             data: data.orderData.data.map(item1 => item1[item]),
             type: 'line',
-            // smooth: true,
           })
         })
-        const option = {
-          xAxis: {data: data.orderData.date},
-          yAxis: {},
-          legend: {data: keys},
-          series,
-          tooltip: {}
+        this.lineChart.series = series
+        this.lineChart.xAxis.data = data.orderData.date
+        //bar charts
+        this.barChart.xAxis.data = data.userData.map(item => item.date)
+        for (let i = 0; i < 2; i++) {
+          this.barChart.series.push({
+            name: i === 1 ? '新增用户' : '活跃用户',
+            data: data.userData.map(item => item[i === 1 ? 'new' : 'active']),
+            type: 'bar'
+          })
         }
-        const el = echarts.init(this.$refs.echartsLine)
-        el.setOption(option)
-        console.log(data.orderData.date)
-        const userOption = {
-          legend: {
-            // 图例文字颜色
-            textStyle: {
-              color: "#333",
-            },
-          },
-          grid: {
-            left: "20%",
-          },
-          // 提示框
-          tooltip: {
-            trigger: "axis",
-          },
-          xAxis: {
-            type: "category", // 类目轴
-            data: data.userData.map(item => item.date),
-            axisLine: {
-              lineStyle: {
-                color: "#17b3a3",
-              },
-            },
-            axisLabel: {
-              interval: 0,
-              color: "#333",
-            },
-          },
-          yAxis: [
-            {
-              type: "value",
-              axisLine: {
-                lineStyle: {
-                  color: "#17b3a3",
-                },
-              },
-            },
-          ],
-          color: ["#2ec7c9", "#b6a2de"],
-          series: [
-            {
-              name: '新增用户',
-              data: data.userData.map(item => item.new),
-              type: 'bar'
-            }, {
-              name: '活跃用户',
-              data: data.userData.map(item => item.active),
-              type: 'bar'
-            },],
-        }
-        const eb = echarts.init(this.$refs.echartsBar)
-        eb.setOption(userOption)
-        const videoOption = {
-          tooltip: {
-            trigger: "item",
-          },
-          color: [
-            "#0f78f4",
-            "#dd536b",
-            "#9462e5",
-            "#a6a6a6",
-            "#e1bb22",
-            "#39c362",
-            "#3ed1cf",
-          ],
-          series: [{
-            data: data.videoData,
-            type: 'pie',
-          }],
-        }
-        const ep = echarts.init(this.$refs.echartsPie)
-        ep.setOption(videoOption)
+        //pie charts
+        this.pieChart.series.push({
+          data: data.videoData,
+          type: 'pie'
+        })
       }
     })
   }
