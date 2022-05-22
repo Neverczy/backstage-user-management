@@ -220,7 +220,6 @@ export default {
       }
     },
     addUser() {
-      this.$refs.operationDialogForm.resetFields()
       this.operationDialogTitle = 0
       this.operationDialogVisible = true
     },
@@ -228,7 +227,6 @@ export default {
       this.operationDialogVisible = false
       this.$message.info('已取消')
       this.$refs.operationDialogForm.resetFields()
-      console.log(this.operationDialogForm)
     },
     confirmOperationDialog() {
       this.$refs.operationDialogForm.validate((valid) => {
@@ -247,6 +245,7 @@ export default {
       const {data} = await createUser(this.operationDialogForm)
       if (data.code === 20000) {
         this.operationDialogVisible = false
+        this.$refs.operationDialogForm.resetFields()
         this.$message.success('新增用户成功')
         this.pageInfo.page = 1
         this.requestUser(this.pageInfo)
@@ -264,6 +263,7 @@ export default {
       if (data.code === 20000) {
         this.$message.success('编辑用户成功!')
         this.operationDialogVisible = false
+        this.$refs.operationDialogForm.resetFields()
         this.requestUser(this.pageInfo)
             .then(() => {
             })

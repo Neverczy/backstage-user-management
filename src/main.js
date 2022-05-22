@@ -10,8 +10,19 @@ import '@/api/mock'
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 
+router.beforeEach((to, from, next) => {
+  store.commit('GETTOKEN')
+  const token = store.state.user.token
+  if (!token && to.name !== 'login') {
+    next({name: 'login'})
+  } else {
+    next()
+  }
+})
+
+
 new Vue({
-    render: h => h(App),
-    router,
-    store,
+  render: h => h(App),
+  router,
+  store,
 }).$mount('#app')
