@@ -13,43 +13,13 @@ const routes = [
     path: '/',
     name: 'main',
     component: () => import('@/views/manager-main'),
-    children: [
-      {
-        path: '/home',
-        name: 'home',
-        component: () => import('@/views/home'),
-      },
-      {
-        path: '/mall',
-        name: 'mall',
-        component: () => import('@/views/mall')
-      },
-      {
-        path: '/user',
-        name: 'user',
-        component: () => import('@/views/user'),
-      },
-      {
-        path: '/page1',
-        name: 'page1',
-        component: () => import('@/views/others/pageOne')
-      },
-      {
-        path: '/page2',
-        name: 'page2',
-        component: () => import('@/views/others/pageTwo')
-      },
-    ]
+    children: []
   },
   {
     path: '/login',
     name: 'login',
     component: () => import('@/views/login/')
-  },
-  /*  {
-      path: '*',
-      redirect: '/login'
-    }*/
+  }
 ]
 
 export default new VueRouter({

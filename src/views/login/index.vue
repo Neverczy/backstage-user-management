@@ -69,7 +69,11 @@ export default {
             console.log(res)
             const {data} = res
             if (data.code === 20000) {
-
+              this.$store.commit('CLEARMENU')
+              this.$store.commit('SETMENU', data.data.menu)
+              this.$store.commit('SETTOKEN', data.data.token)
+              this.$store.commit('ADDMENU', this.$router)
+              this.$router.push({name: 'home'})
             } else {
               this.$message.error(data.data.message)
             }

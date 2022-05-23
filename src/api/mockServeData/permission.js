@@ -15,21 +15,24 @@ export default {
               name: 'home',
               label: '首页',
               icon: 's-home',
-              url: 'home/index'
+              // url: 'home/index'
+              url: 'home'
             },
             {
               path: '/mall',
               name: 'mall',
               label: '商品管理',
               icon: 'video-play',
-              url: 'mall/index'
+              // url: 'mall/index'
+              url: 'mall'
             },
             {
               path: '/user',
               name: 'user',
               label: '用户管理',
               icon: 'user',
-              url: 'User/index'
+              // url: 'User/index'
+              url: 'user'
             },
             {
               label: '其他',
@@ -40,14 +43,14 @@ export default {
                   name: 'page1',
                   label: '页面1',
                   icon: 'setting',
-                  url: 'other/pageOne'
+                  url: 'others/pageOne'
                 },
                 {
                   path: '/page2',
                   name: 'page2',
                   label: '页面2',
                   icon: 'setting',
-                  url: 'other/pageTwo'
+                  url: 'others/pageTwo'
                 }
               ]
             }
@@ -66,14 +69,16 @@ export default {
               name: 'home',
               label: '首页',
               icon: 's-home',
-              url: 'home/index'
+              // url: 'home/index'
+              url: 'home'
             },
             {
               path: '/video',
               name: 'video',
               label: '商品管理',
               icon: 'video-play',
-              url: 'mall/index'
+              // url: 'mall/index'
+              url: 'mall'
             }
           ],
           token: Mock.Random.guid(),

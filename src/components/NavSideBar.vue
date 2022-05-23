@@ -1,13 +1,13 @@
 <template>
   <el-menu
-      default-active="1-4-1"
-      class="el-menu-vertical-demo"
-      @open="handleOpen"
-      @close="handleClose"
-      :collapse="isCollapse"
-      background-color="#545c64"
-      text-color="#eee"
-      active-text-color="#ffd04b">
+    default-active="1-4-1"
+    class="el-menu-vertical-demo"
+    @open="handleOpen"
+    @close="handleClose"
+    :collapse="isCollapse"
+    background-color="#545c64"
+    text-color="#eee"
+    active-text-color="#ffd04b">
     <h3>{{ isCollapse === false ? '通用后台管理系统' : '后台' }}</h3>
     <el-menu-item @click="goPage(nocItem)" v-for="nocItem in noChild" :index="nocItem.name" :key="nocItem.name">
       <i :class="'el-icon-'+nocItem.icon"></i>
@@ -20,10 +20,10 @@
       </template>
       <el-menu-item-group>
         <el-menu-item
-            :index="cItem.name"
-            v-for="cItem in hcItem.children"
-            :key="cItem.name"
-            @click="goPage(cItem)">
+          :index="cItem.name"
+          v-for="cItem in hcItem.children"
+          :key="cItem.name"
+          @click="goPage(cItem)">
           {{ cItem.label }}
         </el-menu-item>
       </el-menu-item-group>
@@ -40,61 +40,20 @@ export default {
   data() {
     return {
       //menu数据
-      menu: [
-        {
-          path: '/',
-          name: 'home',
-          label: '首页',
-          icon: 's-home',
-          url: 'Home/Home'
-        },
-        {
-          path: '/mall',
-          name: 'mall',
-          label: '商品管理',
-          icon: 'video-play',
-          url: 'MallManage/MallManage'
-        },
-        {
-          path: '/user',
-          name: 'user',
-          label: '用户管理',
-          icon: 'user',
-          url: 'UserManage/UserManage'
-        },
-        {
-          label: '其他',
-          icon: 'location',
-          children: [
-            {
-              path: '/page1',
-              name: 'page1',
-              label: '页面1',
-              icon: 'setting',
-              url: 'Other/PageOne'
-            },
-            {
-              path: '/page2',
-              name: 'page2',
-              label: '页面2',
-              icon: 'setting',
-              url: 'Other/PageTwo'
-            }
-          ]
-        }
-      ]
+      menu: []
     };
   },
   computed: {
     noChild() {
-      return this.menu.filter(item => !item.children)
+      return this.asyncMenu.filter(item => !item.children)
     },
     hasChild() {
-      return this.menu.filter(item => item.children)
+      return this.asyncMenu.filter(item => item.children)
     },
     ...mapState({
-      isCollapse: state => state.tab.iscollapse
-    })
+      isCollapse: state => state.tab.iscollapse,
+      asyncMenu: state => state.tab.menu
+    }),
   },
   methods: {
     handleOpen(key, keyPath) {

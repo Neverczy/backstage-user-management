@@ -4,10 +4,10 @@
       <el-button plain circle size="mini" icon="el-icon-menu" @click="changeIsColl"></el-button>
       <el-breadcrumb separator-class="el-icon-caret-right">
         <el-breadcrumb-item
-            class="custColor"
-            v-for="item in tabs"
-            :to="{ name: item.name}"
-            :key="item.name">{{ item.label }}
+          class="custColor"
+          v-for="item in tabs"
+          :to="{ name: item.name}"
+          :key="item.name">{{ item.label }}
         </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
@@ -18,7 +18,7 @@
       </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>个人中心</el-dropdown-item>
-          <el-dropdown-item>退出</el-dropdown-item>
+          <el-dropdown-item @click.native="logout">退出</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -41,6 +41,12 @@ export default {
   methods: {
     changeIsColl() {
       this.$store.commit('SETISCOLLAPSE')
+    },
+    logout() {
+      console.log(1)
+      this.$store.commit('CLEARTOKEN')
+      this.$store.commit('CLEARMENU')
+      this.$router.push({name: 'login'})
     }
   }
 }
