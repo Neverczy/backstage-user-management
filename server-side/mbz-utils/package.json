@@ -1,0 +1,14 @@
+{
+  "name": "mbz-utils",
+  "version": "0.0.1",
+  "description": "mbz's utils for node",
+  "main": "index.js",
+  "type": "module",
+  "keywords": [
+    "mbz",
+    "mbu",
+    "utils"
+  ],
+  "author": "chenzy",
+  "license": "ISC"
+}
