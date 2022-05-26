@@ -1,10 +1,12 @@
 <template>
-<h1>this is mall</h1>
+  <div>
+  </div>
 </template>
 
 <script>
+
 export default {
-  name: "index"
+  name: "index",
 }
 </script>
 

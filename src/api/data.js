@@ -45,3 +45,4 @@ export const getMenu = (loginInfo) => {
     data: loginInfo
   })
 }
+
