@@ -1,12 +1,9 @@
 const express = require('express')
+const user_sign = require('../router-handler/user_sign')
 const router = express.Router()
 
-router.post('/reguser', (req, res) => {
-  res.send('reg ok')
-})
+router.post('/signup', user_sign.signUp)
 
-router.post('/login', (req, res) => {
-  res.send('login ok')
-})
+router.post('/login', user_sign.login)
 
 module.exports = router
