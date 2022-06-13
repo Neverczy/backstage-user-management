@@ -8,6 +8,7 @@ const userSign = require('./router/user_sign')
 const app = express()
 
 app.use(cors())
+app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use((req, res, next) => {
   res.cc = function (err, status = 400) {
@@ -26,6 +27,7 @@ app.use(jwt({secret: config.jwtSecretKey, algorithms: ["HS256"]})
 app.use('/api', userSign)
 
 app.use((err, req, res, next) => {
+  console.log(err)
   if (err.name = 'UnauthorizedError') return res.cc('身份认证失败')
 })
 
