@@ -4,6 +4,7 @@ const {expressjwt: jwt} = require('express-jwt')
 const config = require('./config')
 
 const userSign = require('./router/user_sign')
+const userInfo = require('./router/user_info')
 
 const app = express()
 
@@ -25,6 +26,7 @@ app.use(jwt({secret: config.jwtSecretKey, algorithms: ["HS256"]})
 
 
 app.use('/api', userSign)
+app.use('/my', userInfo)
 
 app.use((err, req, res, next) => {
   console.log(err)
