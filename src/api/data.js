@@ -40,9 +40,16 @@ export const deleteUser = (userId) => {
 
 export const getMenu = (loginInfo) => {
   return axios.request({
-    url: '/permission/getMenu',
+    url: '/api/login',
     method: 'post',
     data: loginInfo
   })
 }
 
+export const userSignUp = (signUpInfo) => {
+  return axios.request({
+    url: '/api/signup',
+    method: 'post',
+    data: signUpInfo
+  })
+}
