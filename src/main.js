@@ -13,7 +13,9 @@ Vue.use(ElementUI)
 router.beforeEach((to, from, next) => {
   store.commit('GETTOKEN')
   const token = store.state.user.token
-  if (!token && to.name !== 'login') {
+  if (to.name === 'signUp' && from.name === 'login') {
+    next()
+  } else if (!token && to.name !== 'login') {
     next({name: 'login'})
   } else if (token && to.name === 'login') {
     next({name: 'home'})
